@@ -1,14 +1,19 @@
 package si.fri.prpo.govorilneure.m2.data;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Kanal {
     private static int id_inc = 1;
 
     private String ime, url, opis;
+    private List<Integer> termini;
     private int id;
 
     public Kanal(String ime) {
         this.id = id_inc++;
         this.ime = ime;
+        this.termini = new LinkedList<Integer>();
     }
 
     public Kanal(String ime, String url) {
@@ -54,5 +59,13 @@ public class Kanal {
 
     public void setOpis(String opis) {
         this.opis = opis;
+    }
+
+    public List<Integer> getTermini() {
+        return termini;
+    }
+
+    public void setTermini(List<Integer> termini) {
+        this.termini = termini;
     }
 }

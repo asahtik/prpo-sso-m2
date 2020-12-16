@@ -34,4 +34,25 @@ public class KanaliZrno {
     public Kanal pridobiZId(int id) {
         return ks.getById(id);
     }
+
+    public Kanal dodaj(Kanal k) {
+        if(k.getIme() == null || k.getIme().trim() == "") return null;
+        Kanal n = new Kanal(k.getIme(), k.getUrl(), k.getOpis());
+        ks.add(n);
+        return n;
+    }
+
+    public Kanal posodobi(int id, int termin) {
+        Kanal u = ks.getById(id);
+        if(u != null) u.getTermini().add(termin);
+        return u;
+    }
+
+    public int odstrani(int id) {
+        if(id<0) return 400;
+        Kanal r = ks.getById(id);
+        if(r == null) return 404;
+        ks.remove(r);
+        return 204;
+    }
 }

@@ -10,7 +10,7 @@ public class KanaliSeznam {
     private List<Kanal> kanali = new LinkedList<Kanal>();
 
     @PostConstruct
-    public void init() {
+    private void init() {
         kanali.add(new Kanal("Zoom"));
         kanali.add(new Kanal("Microsoft Teams"));
         kanali.add(new Kanal("BBB"));

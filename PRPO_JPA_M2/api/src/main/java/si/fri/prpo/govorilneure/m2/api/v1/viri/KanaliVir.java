@@ -1,5 +1,7 @@
 package si.fri.prpo.govorilneure.m2.api.v1.viri;
 
+import si.fri.prpo.govorilneure.m2.api.v1.dtos.KanalDto;
+import si.fri.prpo.govorilneure.m2.data.Kanal;
 import si.fri.prpo.govorilneure.m2.zrna.KanaliZrno;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -25,7 +27,31 @@ public class KanaliVir {
     @GET
     @Path("{id}")
     public Response pridobiEnega(@PathParam("id") int id) {
-        return Response.status(200).entity(kz.pridobiZId(id)).build();
+        Kanal ret = kz.pridobiZId(id);
+        if(ret != null) return Response.status(200).entity(ret).build();
+        return Response.status(404).build();
     }
 
+    @POST
+    @Consumes({"application/si.fri.prpo.govorilneure.m2.data.Kanal+json"})
+    public Response dodaj(Kanal k) {
+        Kanal ret = kz.dodaj(k);
+        if(ret != null) return Response.status(Response.Status.OK).entity(ret).build();
+        else return Response.status(500).build();
+    }
+
+    @PUT
+    @Path("{id}")
+    @Consumes({"application/si.fri.prpo.govorilneure.m2.api.v1.dtos.KanalDto+json"})
+    public Response posodobi(@PathParam("id") int id, KanalDto k) {
+        Kanal ret = kz.posodobi(id, k.getTermin());
+        if(ret != null) return Response.status(Response.Status.OK).entity(ret).build();
+        else return Response.status(404).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response odstrani(@PathParam("id") int id) {
+        return Response.status(kz.odstrani(id)).build();
+    }
 }
