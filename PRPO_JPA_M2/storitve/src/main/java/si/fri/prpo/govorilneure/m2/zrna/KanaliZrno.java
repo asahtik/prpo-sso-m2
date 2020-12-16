@@ -44,7 +44,7 @@ public class KanaliZrno {
 
     public Kanal posodobi(int id, int termin) {
         Kanal u = ks.getById(id);
-        if(u != null) u.getTermini().add(termin);
+        if(u != null && u.getTermini().indexOf(termin) < 0) u.getTermini().add(termin);
         return u;
     }
 

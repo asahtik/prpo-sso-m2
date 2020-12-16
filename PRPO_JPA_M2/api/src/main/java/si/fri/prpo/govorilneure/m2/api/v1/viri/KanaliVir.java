@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.LinkedHashMap;
 
 @Path("kanali")
 @Produces(MediaType.APPLICATION_JSON)
@@ -42,9 +43,8 @@ public class KanaliVir {
 
     @PUT
     @Path("{id}")
-    @Consumes({"application/si.fri.prpo.govorilneure.m2.api.v1.dtos.KanalDto+json"})
-    public Response posodobi(@PathParam("id") int id, KanalDto k) {
-        Kanal ret = kz.posodobi(id, k.getTermin());
+    public Response posodobi(@PathParam("id") int id, Object k) {
+        Kanal ret = kz.posodobi(id, (Integer) ((LinkedHashMap)k).get("termin"));
         if(ret != null) return Response.status(Response.Status.OK).entity(ret).build();
         else return Response.status(404).build();
     }
