@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prpo-m2.yaml
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prpo-m2
+  template:
+    metadata:
+      labels:
+        app: prpo-m2
+    spec:
+      containers:
+      - image: lh3973/druga
+        name: druga-mikro
+        ports:
+        - containerPort: 8081
+          name: server
+          protocol: TCP
+
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: prpo-m2
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: prpo-m2
